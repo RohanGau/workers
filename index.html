@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Rohan Kumar</title>
+    <link rel="stylesheet" href="/assets/css/segments.css" />
+    <!-- <script defer src="index.js"></script> -->
+  </head>
+  <body style="text-align: center">
+    <div id="header">
+      <h1>header</h1>
+    </div>
+    <div id="root">
+      <button id="action">click</button>
+      <button id="action" onclick="startComputation()">
+        start computation
+      </button>
+      <button id="button" onclick="startWorker()">start</button>
+      <button id="button" onclick="stopWorker()">end</button>
+    </div>
+    <div id="footer">
+      <h1>footer</h1>
+    </div>
+    <div id="output"></div>
+  </body>
+  <script src="worker.js"></script>
+  <script src="index.js"></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+  ></script>
+</html>
