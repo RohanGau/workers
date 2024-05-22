@@ -12,12 +12,46 @@ self.addEventListener('install', event => {
   )
 })
 
+// ***Pre-fetching routes***
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open("app-shell-v1").then((cache) => {
+      return cache.addAll([
+        '/',
+        '/index.html',
+        '/about',
+        '/contact',
+        '/styles.css',
+        '/app.js'
+      ])
+    })
+  )
+})
+
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     })
   )
+});
+
+// ****advance caching strategy****
+
+self.addEventListener('fetch', event => {
+  // console.log("fetch :", event);
+  event.respondWith(
+    caches.open('dynamic-v1').then(cache => {
+      return cache.match(event.request).then(response => {
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          console.log("networkResponse :", networkResponse.clone());
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+        return response || fetchPromise;
+      });
+    })
+  );
 });
 
 // ****background synchronization****
